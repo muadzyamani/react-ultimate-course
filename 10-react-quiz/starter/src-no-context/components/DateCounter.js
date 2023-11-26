@@ -6,10 +6,10 @@ function reducer(state, action) {
   console.log(state, action);
 
   switch (action.type) {
-    case "dec":
-      return { ...state, count: state.count - state.step };
     case "inc":
       return { ...state, count: state.count + state.step };
+    case "dec":
+      return { ...state, count: state.count - state.step };
     case "setCount":
       return { ...state, count: action.payload };
     case "setStep":
@@ -47,6 +47,8 @@ function DateCounter() {
 
   const reset = function () {
     dispatch({ type: "reset" });
+    // setCount(0);
+    // setStep(1);
   };
 
   return (
@@ -71,7 +73,9 @@ function DateCounter() {
       <p>{date.toDateString()}</p>
 
       <div>
-        <button onClick={reset}>Reset</button>
+        {(count !== initialState.count || step !== initialState.step) && (
+          <button onClick={reset}>Reset</button>
+        )}
       </div>
     </div>
   );
